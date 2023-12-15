@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.9'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+//group = 'org.delivery'
+//version = '1.0-SNAPSHOT'
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+// 부모 프로젝트는 소스코드를 사용하지 않음
+// bootJar, jar 패키징 하지 않겠다
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = false
+}
+
+/*
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+*/
