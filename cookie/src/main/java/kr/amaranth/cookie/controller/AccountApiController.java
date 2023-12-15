@@ -1,6 +1,7 @@
 package kr.amaranth.cookie.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import kr.amaranth.cookie.db.LoginRequest;
 import kr.amaranth.cookie.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,13 @@ public class AccountApiController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public void login(
+    public String login(
             @RequestBody
             LoginRequest loginRequest,
-            HttpServletResponse httpServletResponse
+            HttpServletResponse httpServletResponse,
+            HttpSession httpSession
     ) {
-        userService.login(loginRequest, httpServletResponse);
+        return userService.login(loginRequest, httpServletResponse);
     }
 
 }

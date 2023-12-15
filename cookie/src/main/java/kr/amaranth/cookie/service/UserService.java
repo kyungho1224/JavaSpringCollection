@@ -17,7 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void login(
+    public String login(
             LoginRequest loginRequest,
             HttpServletResponse httpServletResponse
     ) {
@@ -30,22 +30,24 @@ public class UserService {
         if (optionalUser.isPresent()) {
             var userDto = optionalUser.get();
             if (userDto.getPassword().equals(pw)) {
-                // cookie 정보를 저장
+
+                return userDto.getId();
+
+/*                // cookie 정보를 저장
                 var cookie = new Cookie("authorization-cookie", userDto.getId());
                 cookie.setDomain("localhost");
                 cookie.setPath("/");
                 cookie.setMaxAge(-1);   // session 동일, session 유지된 동안
                 cookie.setHttpOnly(true);   // ** 자바스크립트에서 사용하지 못하게 보안 **
 //                cookie.setSecure(true);     // ** https 에서만 사용이 가능하도록
+                httpServletResponse.addCookie(cookie);*/
 
-                httpServletResponse.addCookie(cookie);
             } else {
                 throw new RuntimeException("Password Not Match");
             }
         } else {
             throw new RuntimeException("User Not Found");
         }
-
     }
 
 }

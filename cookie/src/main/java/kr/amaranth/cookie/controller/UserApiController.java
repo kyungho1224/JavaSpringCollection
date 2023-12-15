@@ -6,10 +6,7 @@ import kr.amaranth.cookie.db.UserRepository;
 import kr.amaranth.cookie.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by KimKyungHo on 2023-12-15(015)
@@ -35,6 +32,7 @@ public class UserApiController {
         var optionalUserDto = userRepository.findById(authorizationCookie);
         return optionalUserDto.get();
 
+        // 쿠키 키&값 확인
 //        var cookies = httpServletRequest.getCookies();
 //
 //        if (cookies != null) {
@@ -43,5 +41,17 @@ public class UserApiController {
 //            }
 //        }
 
+    }
+
+    @GetMapping("/me2")
+    public UserDto me2(
+            @RequestHeader(name = "authorization", required = false)
+            String authorizationHeader
+    ) {
+
+        log.info("authorizationHeader : {}", authorizationHeader);
+
+        var optionalUserDto = userRepository.findById(authorizationHeader);
+        return optionalUserDto.get();
     }
 }
